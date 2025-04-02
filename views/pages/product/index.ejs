@@ -1,0 +1,42 @@
+<!-- Barre de filtres -->
+<div class="flex flex-wrap items-center justify-between mb-6 gap-4">
+
+  <!-- Filtres par famille -->
+  <div class="flex flex-wrap items-center gap-2">
+    <span class="text-white">Catégorie :</span>
+    <% families.forEach(f => { %>
+      <a href="/html/product?family=<%= f %>" class="category-btn <%= currentFamily === f ? 'category-btn-active' : '' %>">
+        <%= f.charAt(0).toUpperCase() + f.slice(1) %>
+      </a>
+    <% }) %>
+  </div>
+
+  <!-- Notre sélection -->
+  <div class="flex items-center gap-3">
+    <span class="text-white">Notre sélection :</span>
+    <a href="/html/product?featured=true" class="link">Produits vedettes</a>
+    <a href="/html/product?suggest=true" class="link">Suggestions</a>
+  </div>
+
+  <!-- Barre de recherche -->
+  <form action="/html/product" method="GET" class="search-bar">
+    <% if (currentFamily) { %>
+      <input type="hidden" name="family" value="<%= currentFamily %>">
+    <% } %>
+    <input type="text" name="search" value="<%= search || '' %>" placeholder="Rechercher..." class="search-input">
+    <button type="submit" class="search-button">Search</button>
+  </form>
+
+</div>
+
+<h1 class="title-la-carte">La carte</h1>
+
+<div class="card-grid">
+  <% for (let i = 0; i < products.length; i++) { %>
+    <div class="card">
+      <img src="/images/<%= products[i].image %>" alt="<%= products[i].title %>" class="w-full h-48 object-cover rounded">
+      <div class="product-title"><%= products[i].title %></div>
+      <div class="product-price"><%= products[i].price.toFixed(2) %> €</div>
+    </div>
+  <% } %>
+</div>

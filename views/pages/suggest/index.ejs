@@ -1,0 +1,42 @@
+<h1 class="title-la-carte">Suggestions</h1>
+
+<table class="w-full mt-6 border-collapse bg-white rounded shadow overflow-hidden">
+  <thead class="bg-yellow-400 text-black">
+    <tr>
+      <th class="p-3 text-left">Image</th>
+      <th class="p-3 text-left">Produit</th>
+      <th class="p-3 text-left">Commentaire</th>
+      <th class="p-3 text-left">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% suggestions.forEach(s => { %>
+      <tr class="border-b hover:bg-gray-100">
+        <td class="p-3">
+          <img src="/images/<%= s.productImage %>" class="h-16 rounded">
+        </td>
+        <td class="p-3 font-semibold text-yellow-700"><%= s.productTitle %></td>
+        <td class="p-3"><%= s.comment %></td>
+        <td class="p-3 text-right">
+          <a href="/html/suggest/<%= s.id %>" class="link">Modifier</a>
+          <button class="link ml-4 text-red-500" onclick="deleteSuggestion('<%= s.id %>')">Supprimer</button>
+        </td>
+      </tr>
+    <% }) %>
+  </tbody>
+</table>
+
+<script>
+    function deleteSuggestion(id) {
+      if (!confirm("Supprimer cette suggestion ?")) return;
+  
+      fetch(`/suggest/${id}`, {
+        method: "DELETE"
+      })
+      .then(res => {
+        if (res.ok) location.reload();
+        else alert("Erreur lors de la suppression");
+      });
+    }
+  </script>
+  

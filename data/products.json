@@ -1,0 +1,29 @@
+[
+  {
+    "id": "1",
+    "title": "Classic Burger",
+    "price": 9.99,
+    "family": "burger",
+    "image": "classic-burger.jpg",
+    "featured": true,
+    "suggest": false
+  },
+  {
+    "id": "2",
+    "title": "Supreme Burger",
+    "price": 12.99,
+    "family": "burger",
+    "image": "supreme-burger.jpg",
+    "featured": false,
+    "suggest": true
+  },
+  {
+    "id": "3",
+    "title": "Kingdom Burger",
+    "price": 14.49,
+    "family": "burger",
+    "image": "kingdom-burger.jpg",
+    "featured": true,
+    "suggest": true
+  }
+]

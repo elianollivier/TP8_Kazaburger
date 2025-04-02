@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <%- include('../partials/head.ejs') %>
+  <body class="bg-gray-100 text-gray-800">
+    <div class="container mx-auto">
+      <%- include('../partials/header.ejs', { title, user }) %>
+      <main class="p-4">
+        <%- body %>
+      </main>
+      <%- include('../partials/footer.ejs') %>
+    </div>
+  </body>
+</html>

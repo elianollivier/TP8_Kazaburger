@@ -1,0 +1,19 @@
+<h1 class="title-la-carte">Connexion</h1>
+
+<form method="POST" action="/login" class="card w-full max-w-lg mx-auto">
+  <label class="block mb-2">Nom d'utilisateur :</label>
+  <input name="username" class="w-full p-2 border rounded mb-4" required>
+
+  <label class="block mb-2">Mot de passe :</label>
+  <input type="password" name="password" class="w-full p-2 border rounded mb-4" required>
+
+  <% if (locals.user?.role === "admin") { %>
+    <!-- Bouton modifier / supprimer / suggestion ici -->
+  <% } %>
+
+  <% if (error) { %>
+    <p class="text-red-500 mb-4"><%= error %></p>
+  <% } %>
+
+  <button type="submit" class="btn w-full">Se connecter</button>
+</form>

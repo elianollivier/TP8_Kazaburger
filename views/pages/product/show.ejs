@@ -1,0 +1,49 @@
+<a href="/html/product" class="link">&larr; Retour à la carte</a>
+
+<div class="card mt-6">
+  <img src="/images/<%= product.image %>" alt="<%= product.title %>" class="w-full h-64 object-cover rounded">
+
+  <div class="mt-4">
+    <h2 class="text-3xl font-bold text-red-600"><%= product.title %></h2>
+    <p class="product-price text-xl mt-2"><%= product.price.toFixed(2) %> €</p>
+  </div>
+
+  <div class="mt-4">
+    <p class="paragraph">Famille : <span class="font-semibold"><%= product.family %></span></p>
+  </div>
+
+  <!-- Bouton suggestion : on verra plus tard si admin -->
+  <div class="mt-6">
+    <div class="mt-6">
+      <h3 class="subtitle">Ajouter une suggestion</h3>
+    
+      <textarea id="new-comment" class="w-full p-2 border rounded" rows="3" placeholder="Ex. : Ce burger serait meilleur avec du bleu..."></textarea>
+    
+      <button id="addSuggestion" class="btn mt-2">Envoyer</button>
+    </div>
+    
+    <script>
+      document.getElementById("addSuggestion").addEventListener("click", () => {
+        const comment = document.getElementById("new-comment").value;
+    
+        fetch("/suggest", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            productId: "<%= product.id %>",
+            comment
+          })
+        })
+        .then(res => {
+          if (res.ok) {
+            alert("Suggestion enregistrée !");
+            window.location.href = "/html/suggest";
+          } else {
+            alert("Erreur lors de l’envoi");
+          }
+        });
+      });
+    </script>
+    
+  </div>
+</div>
