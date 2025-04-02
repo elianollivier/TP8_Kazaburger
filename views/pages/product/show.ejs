@@ -1,49 +1,32 @@
-<a href="/html/product" class="link">&larr; Retour à la carte</a>
+<a href="/html/suggest" class="link">&larr; Retour aux suggestions</a>
 
 <div class="card mt-6">
-  <img src="/images/<%= product.image %>" alt="<%= product.title %>" class="w-full h-64 object-cover rounded">
+  <h2 class="text-2xl font-bold text-yellow-600 mb-4">Modifier la suggestion</h2>
 
-  <div class="mt-4">
-    <h2 class="text-3xl font-bold text-red-600"><%= product.title %></h2>
-    <p class="product-price text-xl mt-2"><%= product.price.toFixed(2) %> €</p>
-  </div>
+  <div class="flex gap-6 items-start">
+    <img src="/images/<%= product.image %>" class="h-32 rounded shadow">
 
-  <div class="mt-4">
-    <p class="paragraph">Famille : <span class="font-semibold"><%= product.family %></span></p>
-  </div>
-
-  <!-- Bouton suggestion : on verra plus tard si admin -->
-  <div class="mt-6">
-    <div class="mt-6">
-      <h3 class="subtitle">Ajouter une suggestion</h3>
-    
-      <textarea id="new-comment" class="w-full p-2 border rounded" rows="3" placeholder="Ex. : Ce burger serait meilleur avec du bleu..."></textarea>
-    
-      <button id="addSuggestion" class="btn mt-2">Envoyer</button>
+    <div class="flex-1">
+      <p class="text-sm mb-2"><strong>Produit :</strong> <%= product.title %></p>
+      <textarea id="comment" class="w-full p-2 border rounded" rows="4"><%= suggestion.comment %></textarea>
+      <button id="saveBtn" class="btn mt-4">Enregistrer</button>
     </div>
-    
-    <script>
-      document.getElementById("addSuggestion").addEventListener("click", () => {
-        const comment = document.getElementById("new-comment").value;
-    
-        fetch("/suggest", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            productId: "<%= product.id %>",
-            comment
-          })
-        })
-        .then(res => {
-          if (res.ok) {
-            alert("Suggestion enregistrée !");
-            window.location.href = "/html/suggest";
-          } else {
-            alert("Erreur lors de l’envoi");
-          }
-        });
-      });
-    </script>
-    
   </div>
 </div>
+
+<script>
+  document.getElementById("saveBtn").addEventListener("click", () => {
+    const comment = document.getElementById("comment").value;
+    fetch("/suggest/<%= suggestion.id %>", {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ comment })
+    }).then(res => {
+      if (res.ok) {
+        window.location.href = "/html/suggest";
+      } else {
+        alert("Erreur lors de la modification");
+      }
+    });
+  });
+</script>
